@@ -1,13 +1,18 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Signal, signal } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CurrencyService {
-
-  // TODO Implement a way to store the current currency as a Signal
-  // TODO Expose your Currency Signal in a read-only manner
-  // TODO Expose a public setter for components to update the current currency
   // TODO Handle exchange rates for each currency using the endpoint: https://lp-store-server.vercel.app/rates
 
+  currencySignal = signal('USD');
+
+  setCurrency(value: string) {
+    this.currencySignal.set(value);
+  }
+
+  get getCurrency(): Signal<string> {
+    return this.currencySignal.asReadonly();
+  }
 }
